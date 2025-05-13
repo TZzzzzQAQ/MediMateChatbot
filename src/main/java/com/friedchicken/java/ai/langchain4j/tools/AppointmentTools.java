@@ -14,7 +14,7 @@ public class AppointmentTools {
   @Autowired
   private AppointmentService appointmentService;
 
-  @Tool(name = "Book Appointment", value = "Based on the parameters, first execute the tool method queryDepartment to check if an appointment can be made, directly inform the user whether it is possible, and let the user confirm all appointment details. After the user confirms, proceed with the booking.")
+  @Tool(name = "bookAppointment", value = "Based on the parameters, first execute the tool method queryDepartment to check if an appointment can be made, directly inform the user whether it is possible, and let the user confirm all appointment details. After the user confirms, proceed with the booking.")
   public String bookAppointment(Appointment appointment) {
     Appointment appointmentDB = appointmentService.getOne(appointment);
     if (appointmentDB == null) {
@@ -28,7 +28,7 @@ public class AppointmentTools {
     return "You already have an appointment for the same department and time.";
   }
 
-  @Tool(name = "Cancel Appointment", value = "Based on the parameters, check if the appointment exists. If it exists, delete the appointment record and return a success message; otherwise, return a failure message.")
+  @Tool(name = "cancelAppointment", value = "Based on the parameters, check if the appointment exists. If it exists, delete the appointment record and return a success message; otherwise, return a failure message.")
   public String cancelAppointment(Appointment appointment) {
     Appointment appointmentDB = appointmentService.getOne(appointment);
     if (appointmentDB != null) {
@@ -41,7 +41,7 @@ public class AppointmentTools {
     return "You have no appointment records. Please verify the department and time.";
   }
 
-  @Tool(name = "Check Availability", value = "Check if there are available slots based on the department name, date, time, and doctor, and return the result to the user.")
+  @Tool(name = "checkAvailability", value = "Check if there are available slots based on the department name, date, time, and doctor, and return the result to the user.")
   public boolean queryDepartment(
       @P(value = "Department Name") String name,
       @P(value = "Date") String date,
@@ -52,13 +52,6 @@ public class AppointmentTools {
     System.out.println("Date: " + date);
     System.out.println("Time: " + time);
     System.out.println("Doctor Name: " + doctorName);
-    // TODO: Maintain doctor scheduling information:
-    // If no doctor name is specified, check if there are any available doctors
-    // based on other conditions (return true if available, false otherwise);
-    // If a doctor name is specified, check if the doctor has a schedule (return
-    // false if no schedule exists);
-    // If a schedule exists, check if the doctor's schedule is fully booked (return
-    // false if fully booked, true if there are available slots).
     return true;
   }
 }

@@ -12,6 +12,7 @@ import com.friedchicken.java.ai.langchain4j.bean.ChatForm;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import reactor.core.publisher.Flux;
 
 @Tag(name = "MediMateController", description = "MediMate Controller")
 @RestController
@@ -22,7 +23,7 @@ public class MediMateController {
 
   @Operation(summary = "Chat with MediMate", description = "Chat with MediMate")
   @PostMapping("/chat")
-  public String chat(@RequestBody ChatForm chatForm) {
+  public Flux<String> chat(@RequestBody ChatForm chatForm) {
     return mediMateChatAssistant.chat(new ObjectId(chatForm.getMemoryId()), chatForm.getMessage());
   }
 }

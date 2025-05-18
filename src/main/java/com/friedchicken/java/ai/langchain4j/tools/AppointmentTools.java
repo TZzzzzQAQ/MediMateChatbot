@@ -14,7 +14,7 @@ public class AppointmentTools {
   @Autowired
   private AppointmentService appointmentService;
 
-  @Tool(name = "bookAppointment", value = "Based on the parameters, first execute the tool method queryDepartment to check if an appointment can be made, directly inform the user whether it is possible, and let the user confirm all appointment details. After the user confirms, proceed with the booking.")
+  @Tool(name = "bookAppointment", value = "Based on the parameters, first execute the tool method queryDepartment to check if an appointment can be made, directly inform the user whether it is possible, and let the user confirm all appointment details. After the user confirms, proceed with the booking. If the user does not provide a specific doctor name, find a doctor from the vector store.")
   public String bookAppointment(Appointment appointment) {
     Appointment appointmentDB = appointmentService.getOne(appointment);
     if (appointmentDB == null) {

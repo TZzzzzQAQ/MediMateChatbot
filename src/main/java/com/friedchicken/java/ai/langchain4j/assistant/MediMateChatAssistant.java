@@ -7,9 +7,10 @@ import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.spring.AiService;
 import dev.langchain4j.service.spring.AiServiceWiringMode;
+import reactor.core.publisher.Flux;
 
-@AiService(wiringMode = AiServiceWiringMode.EXPLICIT, chatModel = "openAiChatModel", chatMemoryProvider = "mediMateChatMemoryProvider", tools = "appointmentTools")
+@AiService(wiringMode = AiServiceWiringMode.EXPLICIT, streamingChatModel = "qwenStreamingChatModel", chatMemoryProvider = "mediMateChatMemoryProvider", tools = "appointmentTools", contentRetriever = "contentRetrieverMedimatePincone")
 public interface MediMateChatAssistant {
   @SystemMessage(fromResource = "medimate-chatbot-prompt.txt")
-  String chat(@MemoryId ObjectId memoryId, @UserMessage String userMessage);
+  Flux<String> chat(@MemoryId ObjectId memoryId, @UserMessage String userMessage);
 }
